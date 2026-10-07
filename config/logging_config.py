@@ -1,5 +1,6 @@
 import logging
 import logging.config
+from logging import Logger
 
 from config.setting import ROOT_PATH
 
@@ -59,5 +60,5 @@ CONFIG = {
 logging.config.dictConfig(CONFIG)
 
 
-def get_logger(name: str):
+def get_logger(name: str) -> Logger:
     return logging.getLogger(name)
