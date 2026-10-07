@@ -1,0 +1,39 @@
+repos:
+-   repo: local
+    hooks:
+      - id: tests
+        name: perform_tests
+        stages: [pre-push]
+        language: python
+        pass_filenames: false
+        entry: pytest --cache-clear tests
+        exclude: '__pycache__/'
+
+      - id: bandit
+        name: security_analysis
+        stages: [pre-push]
+        language: system
+        pass_filenames: false
+        entry: bandit -c pyproject.toml .
+
+      - id: lint
+        name: lint_fix
+        stages: [pre-commit]
+        language: system
+        types: [ python ]
+        entry: ruff check .
+
+      - id: formatter
+        name: format
+        stages: [pre-commit]
+        language: system
+        types: [ python ]
+        entry: ruff format .
+
+      - id: mypy
+        name: type_hints
+        stages: [pre-commit]
+        language: system
+        types: [ python ]
+        pass_filenames: false
+        entry: mypy --config-file pyproject.toml .

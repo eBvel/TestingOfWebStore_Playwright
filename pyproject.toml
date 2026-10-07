@@ -8,10 +8,78 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 
-
 [tool.poetry.group.test.dependencies]
 pytest-playwright = "^0.9.0"
+allure-pytest = "^2.16.2"
+faker = "^40.40.0"
+mypy = "^2.4.0"
+ruff = "^0.16.10"
+bandit = "^1.9.4"
+pre-commit = "^4.6.2"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest]
+minversion = "9.0"
+addopts = ["-sv", "--tb=short"]
+testpaths = [
+    "tests"
+]
+markers = [
+    "smoke: testing the basic functionality",
+    "slow: marks test as slow-running tests",
+    "flaky: Marks tests that are intermittently failing"
+]
+python_classes = ["Test*"]
+python_files = ["test_*"]
+python_functions = ["test_*"]
+
+
+[tool.mypy]
+python_version = "3.10"
+explicit_package_bases = true
+disallow_untyped_calls = false
+disallow_untyped_decorators = false
+strict = true
+pretty = true
+ignore_missing_imports = true
+exclude = [
+	"venv/",
+    "test_first.py"
+]
+
+
+[tool.ruff]
+target-version = "py310"
+exclude = [
+	".venv",
+	"venv",
+	"__pycache__"
+]
+line-length = 80
+
+[tool.ruff.lint]
+select = [
+	"E",
+	"W",
+	"F",
+	"I",
+	"C90",
+	"PL"
+]
+ignore = [
+	"E501",
+	"PLR0913",
+	"W292",
+]
+
+[tool.ruff.format]
+quote-style = "single"
+indent-style = "tab"
+docstring-code-line-length = 72
+
+
+[tool.bandit]
+exclude_dirs = ["tests", "venv","docs"]

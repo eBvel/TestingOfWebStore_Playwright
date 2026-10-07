@@ -1,1 +1,9 @@
 /poetry.lock
+/main.py
+/test_first.py
+__pycache__/
+/.idea
+*.py[cod]
+*$py.class
+/logs
+/screenshots
